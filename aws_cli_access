@@ -1,0 +1,6 @@
+## Atenção: Você pode apagar todo o conteúdo comentado neste aquivo e colar sua AWS CLI.
+## Exemplo de entrada AWS CLI esperada:
+# [default] 
+# aws_access_key_id=xxxxxxxxxxxxxxxxxx 
+# aws_secret_access_key=xxxxxxxxxxxxxxxxxxxxxxxxx 
+# aws_session_token=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
