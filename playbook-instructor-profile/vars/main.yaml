@@ -1,0 +1,28 @@
+# [ Váriaveis de configuração de acesso para AWS ]
+aws_access_key:
+aws_secret_key:
+aws_session_token:
+
+# [ Váriaveis de configuração para criação das Máquinas Virtuais ]
+image: ami-007855ac798b5175e
+security_group_name: cyber-range-security-group
+region: us-east-1
+key_name: cyber-range-keypair
+vpc_id: vpc-05988a042c1c03334
+subnet_id: subnet-0e8f5afb9caf46d4f
+route_table_id: rtb-0ec7c5632f7fdbb44
+config: aluno
+pass: $6$AuMbFesr.2/kt6K2$kY623l4jL4uyONXdwCQsMd/3Bspa88fnYE/EYrX.BtAKISsmTfK.2EPlbXeKaz2wgNZweP7J6bziLL3Xhd4Re/
+
+# [ Repositórios ]
+repo_docker: https://get.docker.com
+repo_github: https://github.com/rafaelpinheiroo1/cyrm.git
+repo_github_terminal: https://github.com/vitorreiel/development-terminal-web.git
+repo_keypair: credentials/keypair.pem
+repo_app: /opt/app
+repo_containers: /opt/web
+repo_home: /home/aluno
+repo_utils: utils/config.toml
+repo_utils_script: utils/start.sh
+repo_hosts: hosts
+repo_vars: vars/main.yaml

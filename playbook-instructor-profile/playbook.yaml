@@ -1,0 +1,35 @@
+- name: Iniciando Conexão com Amazon Web Services
+  hosts: localhost
+  vars_files:
+  - vars/main.yaml
+
+  roles:
+    - create-ec2-modules
+    - create-ec2-instances
+    - describe-ec2-instances
+
+- name: Iniciando conexão com a máquina EC2 Aplicação
+  hosts: vm-application
+  become: true
+  vars_files:
+  - vars/main.yaml
+
+  roles:
+    - application-configuration
+
+- hosts: localhost
+  vars_files:
+  - vars/main.yaml
+
+  tasks:
+    
+    - name: Obtendo endereço da Aplicação
+      shell: sed -n '2s/.*ansible_host=\([0-9.]*\).*/\1/p' {{ repo_hosts }}
+      args:
+        warn: false
+      register: link
+      
+
+    - name: Retornando link da Aplicação
+      debug:
+        msg: Acesse a Aplicação clicando aqui >> http://{{ link.stdout_lines.0 }}:9000

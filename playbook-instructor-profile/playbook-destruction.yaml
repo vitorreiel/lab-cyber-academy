@@ -1,0 +1,89 @@
+- name: Exclui instâncias EC2 e VPC
+  hosts: localhost
+  vars_files:
+  - vars/main.yaml
+
+  tasks:
+    - name: Obtenha informações sobre a VPC e outros componentes
+      amazon.aws.ec2_instance:
+        region: '{{ region }}'
+        aws_access_key: '{{ aws_access_key }}'
+        aws_secret_key: '{{ aws_secret_key }}'
+        aws_session_token: '{{ aws_session_token }}'
+        filters:
+          'vpc-id': '{{ vpc_id }}'
+      register: vpc_modules
+
+    - name: Excluindo as instâncias EC2 do laborátorio
+      amazon.aws.ec2_instance:
+        region: '{{ region }}'
+        state: absent
+        aws_access_key: '{{ aws_access_key }}'
+        aws_secret_key: '{{ aws_secret_key }}'
+        aws_session_token: '{{ aws_session_token }}'
+        instance_ids: '{{ item.instance_id }}'
+      with_items: '{{ vpc_modules.instances }}'
+      no_log: true
+
+    - name: Excluindo grupo de segurança
+      amazon.aws.ec2_security_group:
+        region: '{{ region }}'
+        state: absent
+        aws_access_key: '{{ aws_access_key }}'
+        aws_secret_key: '{{ aws_secret_key }}'
+        aws_session_token: '{{ aws_session_token }}'
+        vpc_id: '{{ vpc_id }}'
+        name: '{{ security_group_name }}'
+
+    - name: Excluindo subnet associada à VPC
+      amazon.aws.ec2_vpc_subnet:
+        region: '{{ region }}'
+        state: absent
+        aws_access_key: '{{ aws_access_key }}'
+        aws_secret_key: '{{ aws_secret_key }}'
+        aws_session_token: '{{ aws_session_token }}'
+        vpc_id: '{{ vpc_id }}'
+        cidr: 10.0.0.0/20
+
+    - name: Excluindo gateway associado à VPC
+      amazon.aws.ec2_vpc_igw:
+        region: '{{ region }}'
+        state: absent
+        aws_access_key: '{{ aws_access_key }}'
+        aws_secret_key: '{{ aws_secret_key }}'
+        aws_session_token: '{{ aws_session_token }}'
+        vpc_id: '{{ vpc_id }}'
+    
+    - name: Excluindo tabela de rota associada à VPC
+      amazon.aws.ec2_vpc_route_table:
+        region: '{{ region }}'
+        state: absent
+        aws_access_key: '{{ aws_access_key }}'
+        aws_secret_key: '{{ aws_secret_key }}'
+        aws_session_token: '{{ aws_session_token }}'
+        vpc_id: '{{ vpc_id }}'
+        route_table_id: '{{ route_table_id }}'
+        lookup: id
+
+    - name: Excluindo módulos e VPC utilizados no laborátorio
+      amazon.aws.ec2_vpc_net:
+        region: '{{ region }}'
+        state: absent
+        aws_access_key: '{{ aws_access_key }}'
+        aws_secret_key: '{{ aws_secret_key }}'
+        aws_session_token: '{{ aws_session_token }}'
+        vpc_id: '{{ vpc_id }}'
+
+    - name: Excluindo par de chaves
+      amazon.aws.ec2_key:
+        region: '{{ region }}'
+        state: absent
+        name: '{{ key_name }}'
+        aws_access_key: '{{ aws_access_key }}'
+        aws_secret_key: '{{ aws_secret_key }}'
+        aws_session_token: '{{ aws_session_token }}'
+
+    - name: Excluindo par de chaves localmente
+      file:
+        path: ./credentials/keypair.pem
+        state: absent

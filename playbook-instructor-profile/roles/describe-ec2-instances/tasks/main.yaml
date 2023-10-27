@@ -1,0 +1,32 @@
+- name: Obtendo dados da instância Aplicação
+  amazon.aws.ec2_instance_info:
+    region: "{{ region }}"
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
+    aws_session_token: "{{ aws_session_token }}"
+    filters:
+      instance.group-name: [ "{{ security_group_name }}" ]
+      key-name: [ "{{ key_name }}" ]
+      "tag:Name": Aplicação
+  register: result
+  retries: 10
+  delay: 30
+  until: '"running" in result.instances.0.state.name'
+  ignore_errors: true
+
+- name: Enviando dados para o arquivo de configuração hosts
+  shell: sed -i "2s/[^>]*/vm-application ansible_host={{ result.instances.0.public_ip_address }} ansible_ssh_common_args='-o StrictHostKeyChecking=no'/g" {{ repo_hosts }}
+  args:
+    warn: false
+
+- name: Enviando dados para o arquivo de configuração de utilitários
+  shell: sed -i '1s/"[^"]*"/"{{ result.instances.0.public_ip_address }}"/' {{ repo_utils }} && sed -i '3s/"[^"]*"/"{{ config }}"/' {{ repo_utils }} && sed -i '4s/"[^"]*"/"{{ config}}"/' {{ repo_utils }}
+  args:
+    warn: false
+
+- name: Atualizando configurações no arquivo hosts
+  meta: refresh_inventory
+
+- name: Aguardando atualização dos hosts
+  shell: sleep 20
+  changed_when: true

@@ -1,0 +1,72 @@
+- name: Checando atualizações do sistema
+  apt:
+    update_cache: true
+
+- name: Habilitando configuração SSH
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^#?PasswordAuthentication'
+    line: 'PasswordAuthentication yes'
+  when: not (ansible_check_mode | bool)
+
+- name: Reiniciando serviço SSH
+  service:
+    name: ssh
+    state: restarted
+  when: not (ansible_check_mode | bool)
+
+- name: Baixando e executando repositório de instalação Docker
+  shell: curl -fsSL '{{ repo_docker }}' | bash
+  args:
+    warn: false
+
+- name: Iniciando serviço Docker
+  service:
+    name: docker
+    state: started
+
+- name: Mudando Hostname
+  ansible.builtin.hostname:
+    name: LabCyberAcademy
+
+- name: Criando um novo usuário para o laboratório
+  user:
+    name: '{{ config }}'
+    password: '{{ pass }}'
+    groups: docker
+    state: present
+    shell: /bin/bash
+    create_home: yes
+  when: not (ansible_check_mode | bool)
+
+- name: Clonando repositório
+  git:
+    repo: '{{ repo_github_terminal }}'
+    dest: '{{ repo_app }}'
+    clone: yes
+    force: yes
+
+- name: Movendo arquivo de configuração
+  copy:
+    src: '{{ repo_utils }}'
+    dest: '{{ repo_app }}'
+  when: not (ansible_check_mode | bool)
+
+- name: Iniciando Docker com Aplicação Web
+  shell: cd '{{ repo_app }}' && docker compose up -d
+
+- name: Clonando repositório
+  git:
+    repo: '{{ repo_github }}'
+    dest: '{{ repo_containers }}'
+    clone: yes
+    force: yes
+
+- name: Baixando dependências do CyRM
+  shell: cd '{{ repo_containers }}' && ./environment_preparation.sh
+
+- name: Movendo arquivo de configuração CyRM
+  copy: src='{{ repo_utils_script }}' dest='{{ repo_home }}' mode=755
+
+#- name: Executando ambiente de treinamento CyRM
+#  shell: cd '{{ repo_containers }}' && docker run -d --name containernet -it --rm --privileged --pid='host' -v /var/run/docker.sock:/var/run/docker.sock --mount type=bind,source=$(pwd)/topology,target=/cyrm containernet-cyrm python3 /cyrm/scenario-1.py

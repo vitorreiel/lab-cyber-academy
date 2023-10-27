@@ -1,0 +1,110 @@
+- name: Criando VPC
+  amazon.aws.ec2_vpc_net:
+    name: Cyber Range VPC Module
+    cidr_block: 10.0.0.0/16
+    region: '{{ region }}'
+    state: present
+    aws_access_key: '{{ aws_access_key }}'
+    aws_secret_key: '{{ aws_secret_key }}'
+    aws_session_token: '{{ aws_session_token }}'
+    tags:
+      module: ec2_vpc_net
+      this: works
+  register: ec2_vpc_result
+
+- name: Criando Sub-rede
+  amazon.aws.ec2_vpc_subnet:
+    vpc_id: '{{ ec2_vpc_result.vpc.id }}'
+    cidr: 10.0.0.0/20
+    region: '{{ region }}'
+    state: present
+    map_public: yes
+    aws_access_key: '{{ aws_access_key }}'
+    aws_secret_key: '{{ aws_secret_key }}'
+    aws_session_token: '{{ aws_session_token }}'
+    tags:
+      Name: Cyber Range Subnet
+  register: ec2_subnet_result
+
+- name: Criando Gateway
+  amazon.aws.ec2_vpc_igw:
+    vpc_id: '{{ ec2_vpc_result.vpc.id }}'
+    region: '{{ region }}'
+    state: present
+    aws_access_key: '{{ aws_access_key }}'
+    aws_secret_key: '{{ aws_secret_key }}'
+    aws_session_token: '{{ aws_session_token }}'
+    tags:
+      Name: Cyber Range Gateway
+  register: ec2_igw_result
+
+- name: Criando tabelas de rotas
+  amazon.aws.ec2_vpc_route_table:
+    vpc_id: '{{ ec2_vpc_result.vpc.id }}'
+    region: '{{ region }}'
+    aws_access_key: '{{ aws_access_key }}'
+    aws_secret_key: '{{ aws_secret_key }}'
+    aws_session_token: '{{ aws_session_token }}'
+    tags:
+      Name: Cyber Range Table Route
+    subnets:
+      - '{{ ec2_subnet_result.subnet.id }}'
+    routes:
+      - dest: 0.0.0.0/0
+        gateway_id: '{{ ec2_igw_result.gateway_id }}'
+  register: route_table_result
+
+- name: Criando Grupo de Segurança
+  amazon.aws.ec2_security_group:
+    name: '{{ security_group_name }}'
+    vpc_id: '{{ ec2_vpc_result.vpc.id }}'
+    region: '{{ region }}'
+    description: Libera o acesso para as portas necessarias para a criacao do Laboratorio
+    aws_access_key: '{{ aws_access_key }}'
+    aws_secret_key: '{{ aws_secret_key }}'
+    aws_session_token: '{{ aws_session_token }}'
+    rules:
+      - proto: tcp
+        ports:
+        - '80'
+        cidr_ip: 0.0.0.0/0
+        rule_desc: Porta para acesso HTTP liberado
+      - proto: tcp
+        ports:
+        - '22'
+        cidr_ip: 0.0.0.0/0
+        rule_desc: Porta para acesso SSH liberado
+      - proto: tcp
+        ports:
+        - '9000'
+        cidr_ip: 0.0.0.0/0
+        rule_desc: Porta para acesso do Web Terminal
+
+- name: Criando par de chaves
+  amazon.aws.ec2_key:
+    name: cyber-range-keypair
+    region: '{{ region }}'
+    key_type: rsa
+    aws_access_key: '{{ aws_access_key }}'
+    aws_secret_key: '{{ aws_secret_key }}'
+    aws_session_token: '{{ aws_session_token }}'
+  register: ec2_key_result
+
+- name: Salvando a chave de acesso SSH localmente
+  copy: content='{{ ec2_key_result.key.private_key }}' dest='{{ repo_keypair }}' mode=0600
+  when: ec2_key_result.changed
+
+- name: Salvando identificador VPC nas variáveis de ambiente 
+  shell: "sed -i '/vpc_id:/{s/.*/vpc_id: {{ ec2_vpc_result.vpc.id }}/}' {{ repo_vars }}"
+  args:
+    warn: false
+
+- name: Salvando identificador Subnet nas variáveis de ambiente 
+  shell: "sed -i '/subnet_id:/{s/.*/subnet_id: {{ ec2_subnet_result.subnet.id }}/}' {{ repo_vars }}"
+  args:
+    warn: false
+
+- name: Salvando identificador Route Table nas variáveis de ambiente 
+  shell: "sed -i '/route_table_id:/{s/.*/route_table_id: {{ route_table_result.route_table.id }}/}' {{ repo_vars }}"
+  args:
+    warn: false
