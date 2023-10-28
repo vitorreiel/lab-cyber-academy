@@ -28,7 +28,6 @@
       args:
         warn: false
       register: link
-      
 
     - name: Retornando link da Aplicação
       debug:
