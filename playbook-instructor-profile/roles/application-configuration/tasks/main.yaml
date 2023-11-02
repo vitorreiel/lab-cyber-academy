@@ -65,9 +65,6 @@
 - name: Baixando dependências do CyRM
   shell: cd '{{ repo_containers }}' && ./environment_preparation.sh
 
-- name: Movendo arquivo de configuração CyRM
-  copy: src='{{ repo_utils_script }}' dest='{{ repo_home }}' mode=755
-
 - name: Executando ambiente de treinamento CyRM
   shell: cd '{{ repo_containers }}' && docker run -d --name containernet -it --rm --privileged --pid='host' -v /var/run/docker.sock:/var/run/docker.sock --mount type=bind,source=$(pwd)/topology,target=/cyrm containernet-cyrm python3 /cyrm/scenario-1.py
       

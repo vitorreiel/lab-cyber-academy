@@ -23,6 +23,5 @@ repo_app: /opt/app
 repo_containers: /opt/web
 repo_home: /home/aluno
 repo_utils: utils/config.toml
-repo_utils_script: utils/start.sh
 repo_hosts: hosts
 repo_vars: vars/main.yaml
