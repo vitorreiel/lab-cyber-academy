@@ -25,7 +25,7 @@
     name: docker
     state: started
 
-- name: Mudando Hostname
+- name: Mudando Hostname da instância
   ansible.builtin.hostname:
     name: LabCyberAcademy
 
@@ -39,7 +39,7 @@
     create_home: yes
   when: not (ansible_check_mode | bool)
 
-- name: Clonando repositório
+- name: Clonando repositório do Lab Cyber Academy
   git:
     repo: '{{ repo_github_terminal }}'
     dest: '{{ repo_app }}'
@@ -52,10 +52,10 @@
     dest: '{{ repo_app }}'
   when: not (ansible_check_mode | bool)
 
-- name: Iniciando Docker com Aplicação Web
+- name: Executando contêiner Docker com aplicação Lab Cyber Academy
   shell: cd '{{ repo_app }}' && docker compose up -d
 
-- name: Clonando repositório
+- name: Clonando repositório do CyRM
   git:
     repo: '{{ repo_github }}'
     dest: '{{ repo_containers }}'
@@ -68,6 +68,6 @@
 - name: Executando ambiente de treinamento CyRM
   shell: cd '{{ repo_containers }}' && docker run -d --name containernet -it --rm --privileged --pid='host' -v /var/run/docker.sock:/var/run/docker.sock --mount type=bind,source=$(pwd)/topology,target=/cyrm containernet-cyrm python3 /cyrm/scenario-1.py
       
-- name: Executando Containers
+- name: Confirmando execução dos Contêineres
   shell: sleep 10
   changed_when: true

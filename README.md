@@ -22,7 +22,7 @@ O objetivo deste projeto é propor, de forma automatizada, a criação de labora
 
 <br>
 
-## 🔎 Pré-resquisitos:
+## 🔎 Pré-requisitos:
 <br>
 
 ```sh
@@ -74,7 +74,7 @@ nano aws_cli_access
 <br>
 <br>
 
-**✏️ 5° Passo** - Por fim, execute o script para iniciação da cenário de Cibersegurança. Abaixo o comando de execução do script:
+**✏️ 5° Passo** - Por fim, execute o script para iniciação do cenário de Cibersegurança. Abaixo o comando de execução do script:
 ```sh
 ./playbook.sh
 ```
@@ -97,4 +97,5 @@ nano aws_cli_access
    <img height="30" width="30" hspace="7" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" />
    <img height="34" width="34" hspace="7" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" />
    <img height="34" width="30" hspace="7" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ansible/ansible-original.svg" />
+   <img height="34" width="30" hspace="7" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg" />
 </div>

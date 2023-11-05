@@ -4,7 +4,7 @@
   - vars/main.yaml
 
   tasks:
-    - name: Obtenha informações sobre a VPC e outros componentes
+    - name: Obtenha informações sobre a VPC e seus componentes
       amazon.aws.ec2_instance:
         region: '{{ region }}'
         aws_access_key: '{{ aws_access_key }}'
@@ -14,7 +14,7 @@
           'vpc-id': '{{ vpc_id }}'
       register: vpc_modules
 
-    - name: Excluindo as instâncias EC2 do laborátorio
+    - name: Excluindo a instância Aplicação utilizada no laboratório
       amazon.aws.ec2_instance:
         region: '{{ region }}'
         state: absent
@@ -65,7 +65,7 @@
         route_table_id: '{{ route_table_id }}'
         lookup: id
 
-    - name: Excluindo módulos e VPC utilizados no laborátorio
+    - name: Excluindo módulos e VPC utilizados no laboratório
       amazon.aws.ec2_vpc_net:
         region: '{{ region }}'
         state: absent
