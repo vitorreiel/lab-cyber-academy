@@ -53,7 +53,7 @@
         aws_secret_key: '{{ aws_secret_key }}'
         aws_session_token: '{{ aws_session_token }}'
         vpc_id: '{{ vpc_id }}'
-    
+
     - name: Excluindo tabela de rota associada à VPC
       amazon.aws.ec2_vpc_route_table:
         region: '{{ region }}'

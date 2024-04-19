@@ -96,15 +96,9 @@
 
 - name: Salvando identificador VPC nas variáveis de ambiente 
   shell: "sed -i '/vpc_id:/{s/.*/vpc_id: {{ ec2_vpc_result.vpc.id }}/}' {{ repo_vars }}"
-  args:
-    warn: false
 
 - name: Salvando identificador Subnet nas variáveis de ambiente 
   shell: "sed -i '/subnet_id:/{s/.*/subnet_id: {{ ec2_subnet_result.subnet.id }}/}' {{ repo_vars }}"
-  args:
-    warn: false
 
 - name: Salvando identificador Route Table nas variáveis de ambiente 
   shell: "sed -i '/route_table_id:/{s/.*/route_table_id: {{ route_table_result.route_table.id }}/}' {{ repo_vars }}"
-  args:
-    warn: false

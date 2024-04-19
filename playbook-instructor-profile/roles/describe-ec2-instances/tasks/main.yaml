@@ -16,13 +16,9 @@
 
 - name: Enviando dados para o arquivo de configuração hosts
   shell: sed -i "2s/[^>]*/vm-application ansible_host={{ result.instances.0.public_ip_address }} ansible_ssh_common_args='-o StrictHostKeyChecking=no'/g" {{ repo_hosts }}
-  args:
-    warn: false
 
 - name: Enviando dados para o arquivo de configuração de utilitários
   shell: sed -i '1s/"[^"]*"/"{{ result.instances.0.public_ip_address }}"/' {{ repo_utils }} && sed -i '3s/"[^"]*"/"{{ config }}"/' {{ repo_utils }} && sed -i '4s/"[^"]*"/"{{ config}}"/' {{ repo_utils }}
-  args:
-    warn: false
 
 - name: Atualizando configurações no arquivo hosts
   meta: refresh_inventory

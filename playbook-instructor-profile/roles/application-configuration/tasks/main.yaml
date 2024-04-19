@@ -17,8 +17,6 @@
 
 - name: Baixando e executando repositório de instalação Docker
   shell: curl -fsSL '{{ repo_docker }}' | bash
-  args:
-    warn: false
 
 - name: Iniciando serviço Docker
   service:
@@ -67,7 +65,7 @@
 
 - name: Executando ambiente de treinamento CyRM
   shell: cd '{{ repo_containers }}' && docker run -d --name containernet -it --rm --privileged --pid='host' -v /var/run/docker.sock:/var/run/docker.sock --mount type=bind,source=$(pwd)/topology,target=/cyrm containernet-cyrm python3 /cyrm/scenario-1.py
-      
+
 - name: Confirmando execução dos Contêineres
   shell: sleep 10
   changed_when: true

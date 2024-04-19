@@ -22,11 +22,9 @@
   - vars/main.yaml
 
   tasks:
-    
+
     - name: Obtendo endereço da Aplicação
       shell: sed -n '2s/.*ansible_host=\([0-9.]*\).*/\1/p' {{ repo_hosts }}
-      args:
-        warn: false
       register: link
 
     - name: Retornando link da Aplicação
