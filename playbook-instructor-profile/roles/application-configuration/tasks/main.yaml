@@ -17,8 +17,6 @@
 
 - name: Baixando e executando repositório de instalação Docker
   shell: curl -fsSL '{{ repo_docker }}' | bash
-  args:
-    warn: false
 
 - name: Iniciando serviço Docker
   service:
@@ -41,33 +39,37 @@
 
 - name: Clonando repositório do Lab Cyber Academy
   git:
-    repo: '{{ repo_github_terminal }}'
+    repo: '{{ repo_github_app }}'
     dest: '{{ repo_app }}'
     clone: yes
     force: yes
 
 - name: Movendo arquivo de configuração
   copy:
-    src: '{{ repo_utils }}'
+    src: '{{ repo_utils_connection }}'
     dest: '{{ repo_app }}'
   when: not (ansible_check_mode | bool)
 
-- name: Executando contêiner Docker com aplicação Lab Cyber Academy
-  shell: cd '{{ repo_app }}' && docker compose up -d
+- name: Movendo scripts dos Laboratórios
+  copy:
+    src: '{{ repo_utils_labs }}'
+    dest: '{{ repo_labs }}'
+    mode: '777'
+  when: not (ansible_check_mode | bool)
 
-- name: Clonando repositório do CyRM
+- name: Clonando repositório do Laboratório 01
   git:
-    repo: '{{ repo_github }}'
-    dest: '{{ repo_containers }}'
+    repo: '{{ repo_github_lab_01 }}'
+    dest: '{{ repo_lab_01 }}'
     clone: yes
     force: yes
 
-- name: Baixando dependências do CyRM
-  shell: cd '{{ repo_containers }}' && ./environment_preparation.sh
+- name: Clonando repositório do Laboratório 02
+  git:
+    repo: '{{ repo_github_lab_02 }}'
+    dest: '{{ repo_lab_02 }}'
+    clone: yes
+    force: yes
 
-- name: Executando ambiente de treinamento CyRM
-  shell: cd '{{ repo_containers }}' && docker run -d --name containernet -it --rm --privileged --pid='host' -v /var/run/docker.sock:/var/run/docker.sock --mount type=bind,source=$(pwd)/topology,target=/cyrm containernet-cyrm python3 /cyrm/scenario-1.py
-      
-- name: Confirmando execução dos Contêineres
-  shell: sleep 10
-  changed_when: true
+- name: Executando contêiner Docker com aplicação Lab Cyber Academy
+  shell: cd '{{ repo_app }}' && docker compose up -d
