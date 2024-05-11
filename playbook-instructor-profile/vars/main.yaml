@@ -3,8 +3,9 @@ aws_access_key:
 aws_secret_key:
 aws_session_token:
 
-# [ Váriaveis de configuração para criação das Máquinas Virtuais ]
+# [ Váriaveis de configuração para criação das Máquinas Virtuais EC2 ]
 image: ami-007855ac798b5175e
+instance: t2.large
 security_group_name: lab-cyber-academy-security-group
 region: us-east-1
 key_name: lab-cyber-academy-keypair
@@ -16,12 +17,16 @@ pass: $6$AuMbFesr.2/kt6K2$kY623l4jL4uyONXdwCQsMd/3Bspa88fnYE/EYrX.BtAKISsmTfK.2E
 
 # [ Repositórios ]
 repo_docker: https://get.docker.com
-repo_github: https://github.com/rafaelpinheiroo1/cyrm.git
-repo_github_terminal: https://github.com/vitorreiel/lab-cyber-academy-app.git
+repo_github_app: https://github.com/vitorreiel/lab-cyber-academy-app.git
+repo_github_lab_01: https://github.com/rafaelpinheiroo1/cyrm.git
+repo_github_lab_02: https://github.com/rafaelpinheiroo1/cyrm-attack.git
 repo_keypair: credentials/keypair.pem
-repo_app: /opt/app
-repo_containers: /opt/web
-repo_home: /home/aluno
-repo_utils: utils/config.toml
-repo_hosts: hosts
 repo_vars: vars/main.yaml
+repo_hosts: hosts
+repo_app: /opt/app
+repo_home: /home/aluno
+repo_labs: /opt/labs
+repo_lab_01: /opt/labs/laboratory-01/cyrm/
+repo_lab_02: /opt/labs/laboratory-02/cyrm-attack/
+repo_utils_connection: utils/connection.toml
+repo_utils_labs: utils/laboratories/
