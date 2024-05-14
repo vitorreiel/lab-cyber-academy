@@ -1,11 +1,3 @@
 #!/bin/bash
-dest="/opt/labs/laboratory-01/cyrm"
-apt install curl openvswitch-switch -y
-docker build "${dest}/images/blue_team_image/" -t blue-team
-docker build "${dest}/images/ssh_image/" -t web-server
-docker build "${dest}/images/user_image/" -t alpine-user
-docker build "${dest}/images/ddos_image/" -t ddos-attack
-docker build "${dest}/images/dic_ssh_image/" -t dic-attack-ssh
-docker build "${dest}/images/containernet_cyrm_image/" -t containernet-cyrm
-docker pull dperson/samba
-docker run -d --name containernet -it --rm --privileged --pid='host' -v /var/run/docker.sock:/var/run/docker.sock --mount type=bind,source="${dest}/topology",target=/cyrm containernet-cyrm python3 /cyrm/scenario-1.py
+cd /opt/labs/laboratory-01/cyrm && ./environment_preparation.sh
+docker run -d --name containernet -it --rm --privileged --pid='host' -v /var/run/docker.sock:/var/run/docker.sock --mount type=bind,source=/opt/labs/laboratory-01/cyrm/topology,target=/cyrm containernet-cyrm python3 /cyrm/scenario-1.py
