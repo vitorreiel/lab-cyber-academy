@@ -71,5 +71,10 @@
     clone: yes
     force: yes
 
+- name: Instalando Open vSwitch
+  apt:
+    name: openvswitch-switch
+    state: present
+
 - name: Executando contêiner Docker com aplicação Lab Cyber Academy
   shell: cd '{{ repo_app }}' && docker compose up -d
