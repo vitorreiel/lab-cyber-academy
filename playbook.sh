@@ -4,6 +4,7 @@ echo -e "\n\033[1;32m- [ Checando Dependências e Atualizações ] \033[0m"
 sudo apt update -y > /dev/null 2>&1
 sudo apt install git python3 python3-pip ansible -y > /dev/null 2>&1
 pip install boto3 ansible-core==2.16.0 Jinja2==3.1.3 urllib3==1.26.5 > /dev/null 2>&1
+pip install --upgrade cryptography pyopenssl > /dev/null 2>&1
 ansible-galaxy collection install community.aws --force > /dev/null 2>&1
 echo -e "\033[1;32m- [ Dependências instaladas com Sucesso! ] \033[0m\n"
 

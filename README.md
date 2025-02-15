@@ -74,12 +74,31 @@ nano aws_cli_access
 <br>
 <br>
 
-**✏️ 5° Passo** - Por fim, execute o script para iniciação do cenário de Cibersegurança. Abaixo o comando de execução do script:
+**✏️ 5° Passo** - Por fim, execute o script para iniciação do cenário de Cibersegurança. Em seguida, digite o valor (1 ou 2), para iniciar o processo de provisionamento ou destruição de um ambiente já existente. Abaixo o comando de execução do script:
 ```sh
 ./playbook.sh
 ```
 
 <br>
+
+---
+
+<br>
+
+## 💾 Link do vídeo de instalação:
+<br>
+
+```sh
+https://youtu.be/N25Jo9__HgI?si=bWRNxNcTFlYBwEcl
+```
+
+<br>
+
+---
+<br>
+
+#### 🎯 Nota: Este repositório é utilizada em conjunto ao [⚗️ Lab Cyber Academy App 🧪](https://github.com/vitorreiel/lab-cyber-academy-app).
+
 <br>
 
 ---
@@ -97,5 +116,5 @@ nano aws_cli_access
    <img height="30" width="30" hspace="7" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" />
    <img height="34" width="34" hspace="7" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" />
    <img height="34" width="30" hspace="7" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ansible/ansible-original.svg" />
-   <img height="34" width="30" hspace="7" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg" />
+   <img height="34" width="30" hspace="7" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" />
 </div>
