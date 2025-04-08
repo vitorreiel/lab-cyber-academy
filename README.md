@@ -107,15 +107,13 @@ nano aws_cli_access
 
 <br>
 
-## 💾 Material de Apaio:
+## 💾 Material de Apoio:
 
 <br>
 
-✏️ Abaixo, um vídeo disponível no YouTube mostra, com mais detalhes, o processo de instalação e execução da ferramenta.
+✏️ Abaixo, um vídeo disponível no YouTube mostra, com mais detalhes, o processo de instalação e execução da ferramenta:
 
-```sh
-https://youtu.be/N25Jo9__HgI?si=bWRNxNcTFlYBwEcl
-```
+* [Link no Youtube](https://youtu.be/N25Jo9__HgI?si=bWRNxNcTFlYBwEcl)
 
 ---
 <br>
