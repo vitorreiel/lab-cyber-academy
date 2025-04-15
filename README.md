@@ -134,12 +134,16 @@ nano aws_cli_access
 Para adicionar novos cenários, é necessário seguir a estrutura de configuração já definida por nossa solução. Para facilitar esse processo, disponibilizamos alguns templates e comentários nos pontos exatos onde as alterações devem ser realizadas. Além disso, os novos cenários também devem ser integrados à interface da aplicação, conforme descrito na documentação disponível no README do repositório: [⚗️ Lab Cyber Academy App 🧪](https://github.com/vitorreiel/lab-cyber-academy-app).
 
 <br>
+<br>
 
-**✏️ 1° Passo** - Adicione o link do repositório GitHub contendo o seu projeto Cyber Range no arquivo de configuração localizado em: `playbook-ansible/vars/main.yml`. Certifique-se de seguir o padrão comentado e exemplificado na imagem abaixo.
+**✏️ 1° Passo** - Adicione o link do repositório GitHub contendo o seu projeto Cyber Range no arquivo de configuração localizado em: `playbook-ansible/vars/main.yaml`. Certifique-se de seguir o padrão comentado e exemplificado na imagem abaixo.
 
 ![Img 5](images/vars.png)
 
-**✏️ 2° Passo** - Inicialmente, crie uma pasta dentro de `playbook-ansible/utils/` para acomodar a instalação das dependências do seu laboratório. É importante seguir o padrão de nomenclatura da estrutura (por exemplo: laboratory-03) e não utilizar nomes arbitrários.  
+<br>
+<br>
+
+**✏️ 2° Passo** - Adicione uma pasta dentro de `playbook-ansible/utils/` para acomodar a instalação das dependências do seu laboratório. É importante seguir o padrão de nomenclatura da estrutura (por exemplo: laboratory-03) e não utilizar nomes arbitrários.  
 
 Além disso, crie um script nomeado como `start-lab.sh` dentro dessa pasta.  
 
@@ -149,17 +153,21 @@ Por fim, conceda permissão de execução ao script utilizando o seguinte comand
 chmod +x start-lab.sh
 ```
 
+<br>
+<br>
+
 **✏️ 3° Passo** - Adicione todas as imagens Docker e configurações necessárias que devem ser instaladas na instância responsável por executar o laboratório no script recém-criado: `start-lab.sh`.  
 
 Abaixo, apresentamos uma imagem de exemplo:
 
 ![Img 6](images/lab-2.png)
 
+<br>
+<br>
+
 **✏️ 4° Passo** - Verifique se todos os passos foram devidamente seguidos e se a estrutura está conforme o padrão estabelecido. Em seguida, prossiga com as alterações no repositório da interface da aplicação para finalizar a integração.
 
 ---
-
-<br>
 
 #### 🎯 Nota: Este repositório é utilizada em conjunto ao [⚗️ Lab Cyber Academy App 🧪](https://github.com/vitorreiel/lab-cyber-academy-app).
 
