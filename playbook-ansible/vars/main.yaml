@@ -31,3 +31,4 @@ repo_utils_labs: utils/laboratories/
 repos_github:
   lab_01: https://github.com/rafaelpinheiroo1/cyrm.git
   lab_02: https://github.com/rafaelpinheiroo1/cyrm-attack.git
+  # lab_03: Link para o repositório do Cyber Range no GitHub
