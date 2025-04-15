@@ -57,19 +57,13 @@
     mode: '777'
   when: not (ansible_check_mode | bool)
 
-- name: Clonando repositório do Laboratório 01
+- name: Clonando repositórios dos laboratórios
   git:
-    repo: '{{ repo_github_lab_01 }}'
-    dest: '{{ repo_lab_01 }}'
+    repo: "{{ item.value }}"
+    dest: "/opt/labs/{{ item.key | regex_replace('lab_', 'laboratory-') }}/cyber-range/"
     clone: yes
     force: yes
-
-- name: Clonando repositório do Laboratório 02
-  git:
-    repo: '{{ repo_github_lab_02 }}'
-    dest: '{{ repo_lab_02 }}'
-    clone: yes
-    force: yes
+  loop: "{{ repos_github | dict2items }}"
 
 - name: Instalando Open vSwitch
   apt:
