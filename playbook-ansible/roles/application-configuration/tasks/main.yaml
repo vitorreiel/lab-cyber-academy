@@ -41,7 +41,6 @@
   git:
     repo: '{{ repo_github_app }}'
     dest: '{{ repo_app }}'
-    version: dev
     clone: yes
     force: yes
 
