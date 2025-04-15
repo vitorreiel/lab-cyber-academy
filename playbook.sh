@@ -3,7 +3,8 @@
 echo -e "\n\033[1;32m- [ Checando Dependências e Atualizações ] \033[0m"
 sudo apt update -y > /dev/null 2>&1
 sudo apt install git python3 python3-pip ansible -y > /dev/null 2>&1
-pip install boto3 ansible-core==2.16.0 Jinja2==3.1.3 urllib3==1.26.5 > /dev/null 2>&1
+pip install boto3 botocore --break-system-packages > /dev/null 2>&1
+pip instll ansible-core==2.16.0 Jinja2==3.1.3 urllib3==1.26.5 > /dev/null 2>&1
 pip install --upgrade cryptography pyopenssl > /dev/null 2>&1
 ansible-galaxy collection install community.aws --force > /dev/null 2>&1
 echo -e "\033[1;32m- [ Dependências instaladas com Sucesso! ] \033[0m\n"
@@ -18,7 +19,7 @@ read inicial
 aws_access_key=$(awk -F= '/aws_access_key_id/ && !/^#/ {print $2}' aws_cli_access)
 aws_secret_key=$(awk -F= '/aws_secret_access_key/ && !/^#/ {print $2}' aws_cli_access)
 aws_session_token=$(awk -F= '/aws_session_token/ && !/^#/ {sub(/aws_session_token=/, ""); print}' aws_cli_access)
-arquivo_destino="playbook-instructor-profile/vars/main.yaml"
+arquivo_destino="playbook-ansible/vars/main.yaml"
 
 if [ "$inicial" = "1" ]; then
 
@@ -38,7 +39,7 @@ if [ "$inicial" = "1" ]; then
     awk -v new_value_1="$aws_access_key" 'NR == 2 {print "aws_access_key: " new_value_1} NR != 2' "$arquivo_destino" > tmpfile && mv tmpfile "$arquivo_destino"
     awk -v new_value_2="$aws_secret_key" 'NR == 3 {print "aws_secret_key: " new_value_2} NR != 3' "$arquivo_destino" > tmpfile && mv tmpfile "$arquivo_destino"
     awk -v new_value_3="$aws_session_token" 'NR == 4 {print "aws_session_token: " new_value_3} NR != 4' "$arquivo_destino" > tmpfile && mv tmpfile "$arquivo_destino"
-    ansible-playbook -i playbook-instructor-profile/hosts playbook-instructor-profile/playbook.yaml
+    ansible-playbook -i playbook-ansible/hosts playbook-ansible/playbook.yaml
 
   elif [ "$confirmacao" = "Não" ] || [ "$confirmacao" = "NÃO" ] || [ "$confirmacao" == "não" ] || [ "$confirmacao" == "Nao" ] || [ "$confirmacao" = "NAO" ] || [ "$confirmacao" == "nao" ] || [ "$confirmacao" == "n" ] || [ "$confirmacao" == "N" ]; then
 
@@ -64,7 +65,7 @@ elif [ "$inicial" = "2" ]; then
     awk -v new_value_1="$aws_access_key" 'NR == 2 {print "aws_access_key: " new_value_1} NR != 2' "$arquivo_destino" > tmpfile && mv tmpfile "$arquivo_destino"
     awk -v new_value_2="$aws_secret_key" 'NR == 3 {print "aws_secret_key: " new_value_2} NR != 3' "$arquivo_destino" > tmpfile && mv tmpfile "$arquivo_destino"
     awk -v new_value_3="$aws_session_token" 'NR == 4 {print "aws_session_token: " new_value_3} NR != 4' "$arquivo_destino" > tmpfile && mv tmpfile "$arquivo_destino"
-    ansible-playbook -i playbook-instructor-profile/hosts playbook-instructor-profile/playbook-destruction.yaml
+    ansible-playbook -i playbook-ansible/hosts playbook-ansible/playbook-destruction.yaml
 
   elif [ "$deletar" = "Não" ] || [ "$deletar" = "NÃO" ] || [ "$deletar" == "não" ] || [ "$deletar" == "Nao" ] || [ "$deletar" = "NAO" ] || [ "$deletar" == "nao" ] || [ "$deletar" == "n" ] || [ "$deletar" == "N" ]; then
 
