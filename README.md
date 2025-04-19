@@ -26,7 +26,7 @@ O objetivo deste projeto é propor, de forma automatizada, a criação de labora
 
 ✏️ 2° Requisito - Tenha acesso a um terminal Linux com permissão de super usuário.
 
-✏️ 3° Requisito - Tenha todas as dependências instaladas em sua máquina.
+✏️ 3° Requisito - Tenha todas as dependências instaladas em sua máquina local.
 ```
 
 <br>
@@ -44,10 +44,12 @@ O objetivo deste projeto é propor, de forma automatizada, a criação de labora
 | Urllib3         | >= 1.26.5            | Biblioteca HTTP usada por várias dependências para requisições web       |
 | Cryptography    | >= 41.0.7            | Biblioteca para criptografia segura usada por várias ferramentas Python  |
 | pyOpenSSL       | >= 23.2.0            | Suporte a conexões seguras (SSL/TLS) em bibliotecas Python               |
+| Docker          | >= 28.0.0            | Plataforma para criação e execução de containers de forma isolada        |
+| Open vSwitch    | >= 2.17.0            | Switch virtual usado para criar redes virtuais entre os containers       |
+| Containernet    | latest               | Extensão do Mininet que permite o uso de containers Docker como nós da rede |
 
 
    >  ⚠️ **Nota:** Não há necessidade de instalar manualmente nenhuma das dependências listadas acima. Todas as dependências e suas respectivas versões serão instaladas automaticamente por meio da execução do script disponibilizado para esse processo (playbook.sh). Nos próximos passos, será explicado como executar esse script.
-   
 
 ---
 
