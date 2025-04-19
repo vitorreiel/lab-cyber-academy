@@ -25,7 +25,29 @@ O objetivo deste projeto é propor, de forma automatizada, a criação de labora
 ✏️ 1° Requisito - Tenha acesso a uma conta AWS Academy;
 
 ✏️ 2° Requisito - Tenha acesso a um terminal Linux com permissão de super usuário.
+
+✏️ 3° Requisito - Tenha todas as dependências instaladas em sua máquina.
 ```
+
+<br>
+
+| Dependência     | Versão               | Descrição                                                                 |
+|-----------------|----------------------|---------------------------------------------------------------------------|
+| Python          | >= 3.10              | Linguagem principal usada para scripts e automações                      |
+| PIP             | >= 24.0              | Gerenciador de pacotes para instalar bibliotecas Python                  |
+| Boto3           | >= 1.37.0            | SDK da AWS para Python, usado para interagir com serviços AWS            |
+| Botocore        | >= 1.37.0            | Biblioteca base do Boto3 para chamadas de baixo nível na AWS             |
+| Ansible         | >= 9.2.0             | Ferramenta de automação IaC para provisionar e configurar infraestrutura |
+| Ansible-core    | >= 2.16.0            | Núcleo do Ansible, essencial para execução dos playbooks                 |
+| Community.Aws   | >= 9.1.0             | Coleção Ansible para integração com serviços AWS                         |
+| Jinja2          | >= 3.1.3             | Template engine usada para gerar arquivos dinâmicos                      |
+| Urllib3         | >= 1.26.5            | Biblioteca HTTP usada por várias dependências para requisições web       |
+| Cryptography    | >= 41.0.7            | Biblioteca para criptografia segura usada por várias ferramentas Python  |
+| pyOpenSSL       | >= 23.2.0            | Suporte a conexões seguras (SSL/TLS) em bibliotecas Python               |
+
+
+   >  ⚠️ **Nota:** Não há necessidade de instalar manualmente nenhuma das dependências listadas acima. Todas as dependências e suas respectivas versões serão instaladas automaticamente por meio da execução do script disponibilizado para esse processo (playbook.sh). Nos próximos passos, será explicado como executar esse script.
+   
 
 ---
 
@@ -129,7 +151,7 @@ nano aws_cli_access
 
 <br>
 
-## 💾 Como implantar um novo Cyber Range no Lab Cyber Academy (LCA)?
+## ➕ Como implantar um novo Cyber Range no Lab Cyber Academy (LCA)?
 
 Para adicionar novos cenários, é necessário seguir a estrutura de configuração já definida por nossa solução. Para facilitar esse processo, disponibilizamos alguns templates e comentários nos pontos exatos onde as alterações devem ser realizadas. Além disso, os novos cenários também devem ser integrados à interface da aplicação, conforme descrito na documentação disponível no README do repositório: [⚗️ Lab Cyber Academy App 🧪](https://github.com/vitorreiel/lab-cyber-academy-app).
 
